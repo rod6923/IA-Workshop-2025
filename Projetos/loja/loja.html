@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronaldo Tech | Sua Loja de Hardware e Periféricos</title>
+    <link rel="stylesheet" href="loja-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="store-header">
+        <div class="header-container">
+            <h1 class="store-logo">Ronaldo<span>.tech</span></h1>
+            <nav class="main-nav">
+                <a href="#">Promoções</a>
+                <a href="#">Hardware</a>
+                <a href="#">Periféricos</a>
+                <a href="#">Computadores</a>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar...">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                </div>
+                <div class="cart-widget">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.44a1.125 1.125 0 00-1.087-1.47H5.25l-.383-1.437a1.125 1.125 0 00-1.088-.835H2.25v1.5zM6 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm12 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg>
+                    <span id="cart-counter" class="cart-counter">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="store-main">
+        <!-- SEÇÃO DO BANNER ROTATIVO -->
+        <section class="hero-banner">
+            <div class="banner-carousel">
+                <div class="banner-slide active" style="background-image: url('../img/banner1.png');">
+                    <div class="banner-content">
+                        <h2>Placas de Vídeo em Oferta</h2>
+                        <p>Até 30% de desconto para turbinar seu setup!</p>
+                        <a href="#" class="btn-primary">Ver Ofertas</a>
+                    </div>
+                </div>
+                <div class="banner-slide" style="background-image: url('../img/banner2.png');">
+                    <div class="banner-content">
+                        <h2>Novos Periféricos</h2>
+                        <p>Precisão e estilo para sua gameplay.</p>
+                        <a href="#" class="btn-primary">Conferir</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DOS PRODUTOS -->
+        <section class="product-section">
+            <div class="container">
+                <h2 class="section-title">&lt;Mais Vendidos&gt;</h2>
+                <div id="product-grid" class="product-grid">
+                    <!-- Produtos serão inseridos aqui -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="store-footer">
+        <div class="container">
+            <p>&copy; 2025 Ronaldo.tech - Todos os direitos reservados.</p>
+            <a href="../links-index.html" class="back-link">Voltar aos Links</a>
+        </div>
+    </footer>
+
+    <script src="loja-script.js"></script>
+</body>
+</html>
