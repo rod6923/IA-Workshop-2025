@@ -1,22 +1,96 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // === LÓGICA DO CANVAS DE CONSTELAÇÃO ===
+    // === LÓGICA DO CANVAS DE CONSTELAÇÃO COM INTERAÇÃO DO MOUSE ===
     const canvas = document.getElementById('constellation-bg');
     if (canvas) {
+
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 20
+        };
+
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         let particlesArray;
 
+        // --- PARÂMETROS PARA AJUSTAR A FÍSICA ---
+        const FRICTION = 0.98; // Quão rápido as partículas perdem velocidade (perto de 1 = menos atrito)
+        const FORCE_MULTIPLIER = 10; // Força máxima da repulsão do mouse
+        const EASE_FACTOR = 0.01; // Quão rápido as partículas voltam ao seu movimento original
+
+        // Classe que define cada partícula
         class Particle {
-            constructor(x, y, dX, dY, size, color) { this.x = x; this.y = y; this.directionX = dX; this.directionY = dY; this.size = size; this.color = color; }
-            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill(); }
-            update() { if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; this.x += this.directionX; this.y += this.directionY; this.draw(); }
+            constructor(x, y, dX, dY, size, color) {
+                this.x = x;
+                this.y = y;
+                // Posição e velocidade originais
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.baseDirectionX = dX;
+                this.baseDirectionY = dY;
+                // Velocidade atual da partícula
+                this.vx = dX;
+                this.vy = dY;
+                this.size = size;
+                this.color = color;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // MÉTODO 'update' TOTALMENTE REESCRITO COM FÍSICA SUAVE
+            update() {
+                // Calcula a distância do mouse
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                // Se a partícula estiver dentro do raio de influência do mouse
+                if (distance < mouse.radius) {
+                    // Calcula a força baseada na proximidade (mais perto = mais forte)
+                    const force = 1 - (distance / mouse.radius);
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+
+                    // Aplica a força de repulsão na velocidade (empurrando para longe)
+                    this.vx -= forceDirectionX * force * FORCE_MULTIPLIER;
+                    this.vy -= forceDirectionY * force * FORCE_MULTIPLIER;
+                }
+
+                // Aplica atrito para desacelerar a partícula com o tempo
+                this.vx *= FRICTION;
+                this.vy *= FRICTION;
+
+                // Faz a partícula voltar suavemente ao seu movimento original
+                this.vx += (this.baseDirectionX - this.vx) * EASE_FACTOR;
+                this.vy += (this.baseDirectionY - this.vy) * EASE_FACTOR;
+
+                // Lógica de colisão com as bordas da tela
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.vx = -this.vx;
+                }
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.vy = -this.vy;
+                }
+                
+                // Atualiza a posição da partícula com base na sua velocidade
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Desenha a partícula
+                this.draw();
+            }
         }
 
+        // Função para criar o array de partículas
         function init() {
             particlesArray = [];
-            // Ajusta a quantidade de partículas com base no tamanho da tela
             let numParticles = (canvas.height * canvas.width) / 9000;
             for (let i = 0; i < numParticles; i++) {
                 let size = (Math.random() * 1.5) + 1;
@@ -28,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Função para desenhar as linhas de conexão
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
@@ -48,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Função principal de animação
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -58,13 +134,24 @@ document.addEventListener('DOMContentLoaded', () => {
             connect();
         }
 
-        // Garante que a animação reinicie se a janela for redimensionada
+        // --- LISTENERS DE EVENTOS ---
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+        
         window.addEventListener('resize', () => {
             canvas.width = innerWidth;
             canvas.height = innerHeight;
             init();
         });
 
+        // --- INICIALIZAÇÃO ---
         init();
         animate();
     }

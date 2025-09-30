@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Runner | Bônus Secreto</title>
+    <link rel="stylesheet" href="game-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <div id="crosshair">+</div>
+
+    <!-- Tela de Início -->
+    <div id="start-screen" class="overlay">
+        <!-- MENSAGEM DE BÔNUS ADICIONADA -->
+        <p class="secret-bonus-message">Parabéns! Você encontrou o jogo bônus secreto.</p>
+        
+        <h1>STAR RUNNER</h1>
+        <p>Destrua as naves inimigas e sobreviva!</p>
+        <p class="controls">◄ ▲ ► ▼ (ou W,A,S,D) para Mover | ESPAÇO para Atirar</p>
+        <button id="start-button">Iniciar Jogo</button>
+    </div>
+
+    <!-- Tela de Fim de Jogo -->
+    <div id="game-over-screen" class="overlay" style="display: none;">
+        <h1>NAVE DESTRUÍDA</h1>
+        <p>Sua pontuação final:</p>
+        <p id="final-score" class="score">0</p>
+        <button id="restart-button">Tentar Novamente</button>
+    </div>
+
+    <!-- UI do Jogo -->
+    <div id="game-ui">
+        <span>PONTOS: <span id="score">0</span></span>
+        <span>SAÚDE: <span id="health">100</span></span>
+        <a href="../index.html" class="back-link">Voltar ao Portfólio</a>
+    </div>
+
+    <script src="game-script.js"></script>
+</body>
+</html>

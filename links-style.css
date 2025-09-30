@@ -117,3 +117,47 @@ body {
     color: var(--accent-color);
     text-shadow: 0 0 5px var(--accent-color);
 }
+
+.link-container {
+    position: relative; /* Adicione ou verifique se esta linha existe */
+    /* ... (o resto do estilo do .link-container) ... */
+}
+
+
+/* ADICIONE ESTAS NOVAS REGRAS NO FINAL DO ARQUIVO */
+
+/* SUBSTITUA O CÓDIGO DO ".secret-game-link" POR ESTE */
+
+/* Estilo para o botão secreto do jogo */
+.secret-game-link {
+    display: inline-block; /* Permite que o link tenha transformações */
+    font-family: var(--font-secondary);
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 1rem; /* Mesmo tamanho do subtítulo */
+    
+    margin-left: 10px; /* Pequeno espaço após o texto */
+    
+    /* Animação de piscar para torná-lo sutilmente perceptível */
+    animation: blink 1.5s infinite steps(1, end);
+    
+    transition: all 0.3s ease;
+}
+
+.secret-game-link:hover {
+    color: #fff; /* Muda a cor ao passar o mouse para branco */
+    background-color: var(--accent-color); /* Fundo verde */
+    text-shadow: 0 0 10px #fff;
+    transform: scale(1.2);
+    animation: none; /* Para a animação de piscar ao interagir */
+}
+
+/* Animação de piscar */
+@keyframes blink {
+    0%, 100% {
+        color: var(--accent-color);
+    }
+    50% {
+        color: transparent; /* O caractere "desaparece" */
+    }
+}
