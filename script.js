@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+      // --- LÓGICA DO PLAYER DE MÚSICA POP-UP ---
+    const openPlayerBtn = document.getElementById('open-player-btn');
+    if (openPlayerBtn) {
+        openPlayerBtn.addEventListener('click', () => {
+            const playerWidth = 300;
+            const playerHeight = 380; // Altura padrão do player compacto do Spotify
+            const url = 'player.html';
+            const windowName = 'spotifyPlayer';
+            
+            // Opções para a nova janela (sem barras, etc.)
+            const windowFeatures = `width=${playerWidth},height=${playerHeight},menubar=no,toolbar=no,location=no,status=no`;
+
+            // Abre a nova janela
+            window.open(url, windowName, windowFeatures);
+        });
+    }
+
     // === LÓGICA DO CANVAS DE CONSTELAÇÃO COM INTERAÇÃO DO MOUSE ===
     const canvas = document.getElementById('constellation-bg');
     if (canvas) {
