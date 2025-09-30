@@ -1,45 +1,106 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (!carouselContainer) return;
 
-    // === LÓGICA DO CARROSSEL "CENTER STAGE" ===
-    const track = document.querySelector('.carousel-track');
-    if (track) {
-        const slides = Array.from(track.children);
-        const nextButton = document.querySelector('.carousel-button.next');
-        const prevButton = document.querySelector('.carousel-button.prev');
-        let currentIndex = 0;
+    // --- VARIÁVEIS E CONSTANTES ---
+    const track = carouselContainer.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = carouselContainer.querySelector('.carousel-button.next');
+    const prevButton = carouselContainer.querySelector('.carousel-button.prev');
 
-        const updateCarousel = () => {
-            const containerWidth = track.parentElement.getBoundingClientRect().width;
-            const slideWidth = slides[0].getBoundingClientRect().width;
-            const offset = (containerWidth / 2) - (slideWidth / 2) - (currentIndex * slideWidth);
-            track.style.transform = `translateX(${offset}px)`;
-            slides.forEach((slide, index) => {
-                slide.classList.toggle('active-slide', index === currentIndex);
-            });
-        };
+    if (slides.length === 0) return;
 
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateCarousel();
-        });
+    const slideCount = slides.length;
+    let isMoving = false;
 
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            updateCarousel();
-        });
+    // --- LÓGICA DE CLONAGEM PARA O LOOP INFINITO ---
+    // Clona os últimos slides para o início
+    slides.slice().reverse().forEach(slide => {
+        track.prepend(slide.cloneNode(true));
+    });
+
+    // Clona os primeiros slides para o fim
+    slides.slice().forEach(slide => {
+        track.append(slide.cloneNode(true));
+    });
+
+    // Atualiza a lista de slides para incluir os clones
+    const allSlides = Array.from(track.children);
+    let currentIndex = slideCount; // Começa no primeiro slide real
+
+    // --- FUNÇÃO PRINCIPAL DE POSICIONAMENTO ---
+    const setPosition = (withTransition = true) => {
+        isMoving = true;
+        const slideWidth = slides[0].offsetWidth; // Usa offsetWidth para incluir padding
+        const containerWidth = carouselContainer.offsetWidth;
         
-        slides.forEach((slide, index) => {
-            slide.addEventListener('click', () => {
-                if(index !== currentIndex) {
-                    currentIndex = index;
-                    updateCarousel();
-                }
-            });
+        // Calcula a posição para centralizar o slide atual
+        const position = - (currentIndex * slideWidth) + (containerWidth / 2) - (slideWidth / 2);
+
+        track.style.transition = withTransition ? 'transform 0.5s ease-out' : 'none';
+        track.style.transform = `translateX(${position}px)`;
+
+        // Atualiza a classe de foco
+        allSlides.forEach((slide, index) => {
+            slide.classList.toggle('active-slide', index === currentIndex);
         });
 
-        window.addEventListener('resize', updateCarousel);
-        setTimeout(updateCarousel, 100); // Pequeno timeout para garantir que as dimensões estejam corretas no carregamento
-    }
+        // Libera o movimento após a animação (se houver)
+        if (!withTransition) {
+            isMoving = false;
+        }
+    };
+
+    // --- HANDLERS DE EVENTOS ---
+    const moveNext = () => {
+        if (isMoving) return;
+        currentIndex++;
+        setPosition();
+    };
+
+    const movePrev = () => {
+        if (isMoving) return;
+        currentIndex--;
+        setPosition();
+    };
+
+    // Função que faz o "salto" mágico do loop infinito
+    const handleLoop = () => {
+        isMoving = false;
+        // Se chegamos no clone do fim, salta para o slide real correspondente no início
+        if (currentIndex >= slideCount * 2) {
+            currentIndex = slideCount;
+            setPosition(false);
+        }
+        // Se chegamos no clone do início, salta para o slide real correspondente no fim
+        if (currentIndex < slideCount) {
+            currentIndex = slideCount * 2 -1;
+            setPosition(false);
+        }
+    };
+    
+    // Clicar em um slide para focar nele
+    allSlides.forEach((slide, index) => {
+        slide.addEventListener('click', () => {
+            if (isMoving || index === currentIndex) return;
+            currentIndex = index;
+            setPosition();
+        });
+    });
+
+
+    // --- ADICIONAR LISTENERS ---
+    nextButton.addEventListener('click', moveNext);
+    prevButton.addEventListener('click', movePrev);
+    track.addEventListener('transitionend', handleLoop);
+    window.addEventListener('resize', () => setPosition(false));
+
+    // --- INICIALIZAÇÃO ---
+    // Garante que o CSS foi aplicado antes de calcular as posições
+    setTimeout(() => {
+        setPosition(false);
+    }, 100);
+
 
     // === LÓGICA DO LIGHTBOX (VISUALIZADOR DE IMAGEM) ===
     const pageWrapper = document.getElementById('page-wrapper');
@@ -48,34 +109,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxTitle = document.getElementById('lightbox-title');
         const lightboxDesc = document.getElementById('lightbox-description');
-        const projectItems = document.querySelectorAll('.project-item');
         const closeBtn = document.querySelector('.close-lightbox');
 
-        projectItems.forEach(item => {
-            // Adiciona o evento de clique apenas na imagem dentro do item
-            const img = item.querySelector('img');
-            img.addEventListener('click', (e) => {
-                e.stopPropagation(); // Impede que o clique na imagem também acione o clique no 'item' para navegação
+        document.body.addEventListener('click', (e) => {
+            if (e.target.matches('.project-item.active-slide')) {
+                const item = e.target;
+                const img = item.querySelector('img');
                 
-                // Pega os dados do elemento pai '.project-item'
                 const title = item.dataset.title || '';
                 const description = item.dataset.description || 'Este projeto não possui uma descrição.';
 
-                // Popula o lightbox
                 lightboxImg.src = img.src;
                 lightboxTitle.textContent = title;
                 lightboxDesc.textContent = description;
                 
-                // Mostra o lightbox e aplica o blur
                 lightbox.style.display = 'flex';
                 pageWrapper.classList.add('blur-background');
-            });
+            }
         });
 
         const closeLightbox = () => {
             lightbox.style.display = 'none';
             pageWrapper.classList.remove('blur-background');
-        }
+        };
 
         closeBtn.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => {

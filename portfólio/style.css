@@ -48,9 +48,8 @@ body::-webkit-scrollbar-thumb {
 }
 #page-wrapper.blur-background {
     filter: blur(8px) brightness(0.7);
-    pointer-events: none; /* Impede interação com o fundo */
+    pointer-events: none;
 }
-
 
 .container {
     max-width: 1200px;
@@ -125,11 +124,11 @@ body::-webkit-scrollbar-thumb {
 
 .hero-text {
     max-width: 650px;
-    text-align: left; /* Alinha o texto à esquerda */
+    text-align: left;
 }
 
 .hero-title {
-    font-size: 3.8rem; /* Levemente menor para caber melhor */
+    font-size: 3.8rem;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -143,7 +142,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 1.1rem;
     color: var(--secondary-text);
     max-width: 600px;
-    margin: 1.5rem 0 2.5rem 0; /* Ajuste na margem */
+    margin: 1.5rem 0 2.5rem 0;
     line-height: 1.7;
 }
 
@@ -167,37 +166,22 @@ body::-webkit-scrollbar-thumb {
     width: 320px;
     height: 320px;
     position: relative;
-    animation: floatAnimation 4s ease-in-out infinite; /* Animação de flutuação */
+    animation: floatAnimation 4s ease-in-out infinite;
 }
 
 .hero-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garante que a imagem preencha o círculo */
+    object-fit: cover;
     border-radius: 50%;
     border: 3px solid var(--accent-color);
     box-shadow: 0 0 25px var(--glow-color), 0 0 45px rgba(57, 255, 20, 0.2);
 }
 
-/* Animação para a foto flutuar suavemente */
 @keyframes floatAnimation {
     0% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0); }
-}
-.btn {
-    background-color: var(--accent-color);
-    color: #000;
-    padding: 1rem 2.5rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px var(--glow-color);
-}
-.btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px var(--accent-color);
 }
 
 /* SEÇÕES GENÉRICAS */
@@ -265,29 +249,35 @@ body::-webkit-scrollbar-thumb {
 .skill-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
 .skill-card p { color: var(--secondary-text); line-height: 1.6; }
 
-/* CARROSSEL ESTILO "CENTER STAGE" */
+/* ===================================================
+   CARROSSEL INFINITO COM FOCO CENTRAL (VERSÃO FINAL)
+   =================================================== */
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 450px;
     overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .carousel-track {
     display: flex;
     align-items: center;
     height: 100%;
-    position: relative;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .project-item {
-    min-width: 60%;
-    position: relative;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: scale(0.8);
-    opacity: 0.4;
+    min-width: 400px;
+    height: 85%;
+    padding: 0 10px;
     cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: scale(0.75);
+    opacity: 0.4;
 }
 
 .project-item.active-slide {
@@ -297,10 +287,12 @@ body::-webkit-scrollbar-thumb {
 
 .project-item img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    -webkit-box-reflect: below 15px linear-gradient(transparent, transparent, #0004);
+   
+    -webkit-box-reflect: below 5px linear-gradient(transparent, transparent, #0004);
+    pointer-events: none;
 }
 
 .carousel-button {
@@ -337,7 +329,7 @@ body::-webkit-scrollbar-thumb {
 .footer .btn { display: inline-block; }
 .footer-copy { margin-top: 4rem; font-size: 0.9rem; color: #666; }
 
-/* ESTILOS DO LIGHTBOX (VISUALIZADOR DE IMAGEM) */
+/* ESTILOS DO LIGHTBOX */
 .lightbox {
     display: none; 
     position: fixed;
@@ -362,7 +354,7 @@ body::-webkit-scrollbar-thumb {
     margin: auto;
     display: block;
     max-width: 85%;
-    max-height: 70vh; /* Limita a altura da imagem para sobrar espaço para a descrição */
+    max-height: 70vh;
     border-radius: 5px;
 }
 
@@ -408,17 +400,6 @@ body::-webkit-scrollbar-thumb {
     color: #bbb;
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 768px) {
-    .hero-title { font-size: 2.5rem; }
-    .nav-menu { display: none; }
-    .project-item { min-width: 80%; }
-    .carousel-button.prev { left: 2%; }
-    .carousel-button.next { right: 2%; }
-    .lightbox-content { max-width: 90%; max-height: 60vh; }
-    #lightbox-title { font-size: 1.2rem; }
-    #lightbox-description { font-size: 0.9rem; }
-}
 .back-link {
     font-family: var(--font-secondary);
     color: var(--secondary-text);
@@ -426,3 +407,29 @@ body::-webkit-scrollbar-thumb {
     transition: color 0.3s ease;
 }
 .back-link:hover { color: var(--accent-color); }
+
+/* RESPONSIVIDADE */
+@media (max-width: 992px) {
+    .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .hero-text {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; }
+    .nav-menu { display: none; }
+    
+    .project-item {
+        min-width: 300px;
+    }
+
+    .carousel-button.prev { left: 2%; }
+    .carousel-button.next { right: 2%; }
+    .lightbox-content { max-width: 90%; max-height: 60vh; }
+    #lightbox-title { font-size: 1.2rem; }
+    #lightbox-description { font-size: 0.9rem; }
+}
