@@ -247,3 +247,149 @@ body {
     transition: color 0.3s ease;
 }
 .back-link:hover { color: var(--accent-color); }
+/* ===================================================
+   EFEITO DE BLUR E ESTILOS DO MODAL
+   =================================================== */
+
+/* Invólucro da página para o efeito de blur */
+#page-wrapper {
+    transition: filter 0.3s ease-in-out;
+}
+#page-wrapper.blur-background {
+    filter: blur(8px) brightness(0.5);
+    pointer-events: none;
+}
+
+/* Fundo do Modal (Overlay) */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+}
+.modal.visible {
+    display: flex;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Conteúdo principal do Modal */
+.modal-content {
+    background-color: var(--surface-color);
+    border: 1px solid rgba(255, 7, 58, 0.2);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+
+/* Cabeçalho do Modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 7, 58, 0.2);
+}
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--primary-text);
+}
+.close-modal {
+    color: var(--secondary-text);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.close-modal:hover {
+    color: var(--accent-color);
+}
+
+/* Corpo do Modal (onde ficam os itens) */
+.modal-body {
+    padding: 1rem;
+    overflow-y: auto;
+}
+.cart-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+.cart-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.cart-item-info {
+    flex-grow: 1;
+}
+.cart-item-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--primary-text);
+}
+.cart-item-price {
+    color: var(--secondary-text);
+}
+.remove-item-btn {
+    background: none;
+    border: 1px solid var(--secondary-text);
+    color: var(--secondary-text);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.remove-item-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+.cart-empty-message {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--secondary-text);
+}
+
+/* Rodapé do Modal */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 7, 58, 0.2);
+}
+.total {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-text);
+}
+#cart-total {
+    color: var(--accent-color);
+    margin-left: 0.5rem;
+}
+#checkout-btn {
+    padding: 0.7rem 1.5rem;
+}
