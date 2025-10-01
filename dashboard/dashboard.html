@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
     <!-- FIM DO CÓDIGO DO FAVICON -->
     <link rel="stylesheet" href="dashboard-style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,25 +30,6 @@
     <main class="dashboard-main container">
         <h2 class="page-title">&lt;Dashboard de Desempenho&gt;</h2>
 
-        <!-- PAINEL DE CONTROLE PARA ADICIONAR VENDAS -->
-        <section class="control-panel">
-            <h3>Adicionar Nova Venda</h3>
-            <form id="add-sale-form" class="sale-form">
-                <div class="form-group">
-                    <label for="product-name">Produto Vendido</label>
-                    <input type="text" id="product-name" placeholder="Ex: Placa de Vídeo RTX 4070" required>
-                </div>
-                <div class="form-group">
-                    <label for="sale-value">Valor (R$)</label>
-                    <input type="number" id="sale-value" step="0.01" placeholder="Ex: 3899.90" required>
-                </div>
-                <div class="form-group-checkbox">
-                    <input type="checkbox" id="new-customer">
-                    <label for="new-customer">É um novo cliente?</label>
-                </div>
-                <button type="submit" class="btn-add">Adicionar Venda</button>
-            </form>
-        </section>
 
         <!-- GRID DE MÉTRICAS PRINCIPAIS (KPIs) -->
         <section class="kpi-grid">
@@ -94,6 +75,84 @@
             <canvas id="salesChart"></canvas>
         </section>
 
+        <!-- SEÇÃO DE PRODUTOS -->
+        <section class="products-section">
+            <div class="section-header">
+                <h3>Gerenciar Produtos</h3>
+                <button id="add-product-btn" class="btn-primary">+ Adicionar Produto</button>
+            </div>
+            
+            <!-- Formulário de Produto (oculto por padrão) -->
+            <div id="product-form-container" class="product-form-container hidden">
+                <form id="product-form" class="product-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-name">Nome do Produto</label>
+                            <input type="text" id="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price">Preço (R$)</label>
+                            <input type="number" id="product-price" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-stock">Estoque</label>
+                            <input type="number" id="product-stock" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">Categoria</label>
+                            <select id="product-category">
+                                <option value="Hardware">Hardware</option>
+                                <option value="Periféricos">Periféricos</option>
+                                <option value="Acessórios">Acessórios</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-image">Imagem do Produto</label>
+                        <input type="file" id="product-image" accept="image/*" class="file-input">
+                        <div id="image-preview" class="image-preview hidden">
+                            <img id="preview-img" src="" alt="Preview">
+                            <button type="button" id="remove-image" class="btn-remove-image">×</button>
+                        </div>
+                        <div id="image-url-display" class="image-url-display hidden">
+                            <small>URL: <span id="image-url-text"></span></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-description">Descrição</label>
+                        <textarea id="product-description" rows="3" placeholder="Descrição do produto..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">Salvar Produto</button>
+                        <button type="button" id="cancel-product-btn" class="btn-cancel">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabela de Produtos -->
+            <div class="products-table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Estoque</th>
+                            <th>Vendidos</th>
+                            <th>Categoria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body">
+                        <!-- Gerado dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- LISTAS DE PRODUTOS E PEDIDOS -->
         <section class="bottom-grid">
             <div class="list-card">
@@ -103,17 +162,16 @@
                 </ol>
             </div>
             <div class="list-card">
-                <h3>Últimos Pedidos</h3>
+                <h3>Produtos com Estoque Baixo</h3>
                 <table class="orders-table">
                     <thead>
                         <tr>
-                            <th>ID do Pedido</th>
                             <th>Produto</th>
-                            <th>Valor</th>
-                            <th>Ação</th>
+                            <th>Estoque</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody id="recent-orders-body">
+                    <tbody id="low-stock-body">
                         <!-- Gerado dinamicamente pelo JS -->
                     </tbody>
                 </table>

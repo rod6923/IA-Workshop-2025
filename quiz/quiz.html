@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
     <!-- FIM DO CÓDIGO DO FAVICON -->
 
     <link rel="stylesheet" href="quiz-style.css">
@@ -42,11 +42,27 @@
             <button id="next-btn" class="btn next-btn-style hidden">Próxima Pergunta</button>
         </div>
 
+        <!-- Tela de Inserção de Nome -->
+        <div id="name-entry-screen" class="hidden">
+            <h1 class="result-title">Quase lá!</h1>
+            <p class="result-subtitle">Sua pontuação final:</p>
+            <h2 id="final-score-name" class="final-score-text">0</h2>
+            <div class="name-form">
+                <label for="player-name">Digite seu nome para entrar no ranking:</label>
+                <input id="player-name" type="text" maxlength="32" placeholder="Seu nome" />
+                <button id="submit-score-btn" class="btn">Enviar Pontuação</button>
+            </div>
+        </div>
+
         <!-- Tela de Resultado Final -->
         <div id="result-screen" class="hidden">
             <h1 class="result-title">Quiz Finalizado!</h1>
             <p class="result-subtitle">Sua pontuação final foi:</p>
             <h2 id="final-score" class="final-score-text">0</h2>
+            <div class="leaderboard">
+                <h3>Top 10 Jogadores</h3>
+                <ol id="leaderboard-list"></ol>
+            </div>
             <button id="restart-btn" class="btn">Jogar Novamente</button>
         </div>
          <a href="../index.html" class="back-link">Voltar aos Links</a>

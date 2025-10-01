@@ -18,7 +18,7 @@
     <div id="page-wrapper">
         <header class="store-header">
             <div class="header-container">
-                <h1 class="store-logo">Ronaldo<span>.tech</span></h1>
+                <a href="loja.html" class="store-logo">Ronaldo<span>.tech</span></a>
                 <nav class="main-nav">
                     <a href="#">Promoções</a>
                     <a href="#">Hardware</a>
@@ -30,6 +30,11 @@
                         <input type="text" placeholder="Buscar...">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
                     </div>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
                     <div class="cart-widget">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.44a1.125 1.125 0 00-1.087-1.47H5.25l-.383-1.437a1.125 1.125 0 00-1.088-.835H2.25v1.5zM6 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm12 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg>
                         <span id="cart-counter" class="cart-counter">0</span>
@@ -37,6 +42,36 @@
                 </div>
             </div>
         </header>
+
+        <!-- Menu Mobile -->
+        <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-menu-header">
+                <h2>Menu</h2>
+                <button class="mobile-menu-close" id="mobile-menu-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Search Mobile -->
+            <div class="mobile-search">
+                <h3>Buscar Produtos</h3>
+                <input type="text" class="mobile-search-input" placeholder="Digite o que você procura...">
+            </div>
+            
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="#">Promoções</a></li>
+                    <li><a href="#">Hardware</a></li>
+                    <li><a href="#">Periféricos</a></li>
+                    <li><a href="#">Computadores</a></li>
+                    <li><a href="#">Suporte</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
 
         <main class="store-main">
             <section class="hero-banner">

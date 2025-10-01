@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho | Ronaldo Tech</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="loja-style.css">
+    <link rel="stylesheet" href="carrinho-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="page-wrapper">
+        <header class="store-header">
+            <div class="header-container">
+                <h1 class="store-logo">Ronaldo<span>.tech</span></h1>
+                <nav class="main-nav">
+                    <a href="loja.html">Voltar à Loja</a>
+                    <a href="#">Hardware</a>
+                    <a href="#">Periféricos</a>
+                    <a href="#">Computadores</a>
+                </nav>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Buscar...">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                    </div>
+                    <div class="cart-widget">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.44a1.125 1.125 0 00-1.087-1.47H5.25l-.383-1.437a1.125 1.125 0 00-1.088-.835H2.25v1.5zM6 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm12 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg>
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="store-main">
+            <div class="container">
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb">
+                    <a href="loja.html">Loja</a> / <span>Carrinho</span>
+                </nav>
+
+                <!-- Título da Página -->
+                <h1 class="page-title">Seu Carrinho</h1>
+
+                <!-- Loading State -->
+                <div id="loading-state" class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando carrinho...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="empty-cart hidden">
+                    <div class="empty-cart-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.44a1.125 1.125 0 00-1.087-1.47H5.25l-.383-1.437a1.125 1.125 0 00-1.088-.835H2.25v1.5zM6 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm12 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                        </svg>
+                        <h2>Seu carrinho está vazio</h2>
+                        <p>Que tal adicionar alguns produtos incríveis?</p>
+                        <a href="loja.html" class="btn-primary">Continuar Comprando</a>
+                    </div>
+                </div>
+
+                <!-- Cart Content -->
+                <div id="cart-content" class="cart-content hidden">
+                    <div class="cart-grid">
+                        <!-- Lista de Itens -->
+                        <div class="cart-items-section">
+                            <div class="section-header">
+                                <h2>Itens no Carrinho</h2>
+                                <span id="items-count" class="items-count">0 itens</span>
+                            </div>
+                            
+                            <div id="cart-items-list" class="cart-items-list">
+                                <!-- Itens serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <!-- Resumo do Pedido -->
+                        <div class="order-summary">
+                            <div class="summary-header">
+                                <h2>Resumo do Pedido</h2>
+                            </div>
+                            
+                            <div class="summary-content">
+                                <div class="summary-row">
+                                    <span>Subtotal</span>
+                                    <span id="subtotal">R$ 0,00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Frete</span>
+                                    <span id="shipping">R$ 0,00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Desconto</span>
+                                    <span id="discount">- R$ 0,00</span>
+                                </div>
+                                <div class="summary-divider"></div>
+                                <div class="summary-row total-row">
+                                    <span>Total</span>
+                                    <span id="total">R$ 0,00</span>
+                                </div>
+                            </div>
+
+                            <div class="checkout-actions">
+                                <button id="update-cart-btn" class="btn-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                    </svg>
+                                    Atualizar Carrinho
+                                </button>
+                                
+                                <button id="checkout-btn" class="btn-primary btn-large">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                                    </svg>
+                                    Finalizar Compra
+                                </button>
+                            </div>
+
+                            <div class="payment-methods">
+                                <h3>Formas de Pagamento</h3>
+                                <div class="payment-options">
+                                    <div class="payment-option">
+                                        <input type="radio" id="credit-card" name="payment" value="credit" checked>
+                                        <label for="credit-card">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                                            </svg>
+                                            Cartão de Crédito
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" id="pix" name="payment" value="pix">
+                                        <label for="pix">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                                            </svg>
+                                            PIX
+                                        </label>
+                                    </div>
+                                    <div class="payment-option">
+                                        <input type="radio" id="boleto" name="payment" value="boleto">
+                                        <label for="boleto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                                            </svg>
+                                            Boleto Bancário
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="store-footer">
+            <div class="container">
+                <p>&copy; 2025 Ronaldo.tech - Todos os direitos reservados.</p>
+                <a href="../index.html" class="back-link">Voltar aos Links</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="carrinho-script.js"></script>
+</body>
+</html>

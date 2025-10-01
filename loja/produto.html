@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Produto | Ronaldo Tech</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="loja-style.css">
+    <link rel="stylesheet" href="produto-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="page-wrapper">
+        <header class="store-header">
+            <div class="header-container">
+                <h1 class="store-logo">Ronaldo<span>.tech</span></h1>
+                <nav class="main-nav">
+                    <a href="loja.html">Voltar à Loja</a>
+                    <a href="#">Hardware</a>
+                    <a href="#">Periféricos</a>
+                    <a href="#">Computadores</a>
+                </nav>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Buscar...">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                    </div>
+                    <div class="cart-widget">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.44a1.125 1.125 0 00-1.087-1.47H5.25l-.383-1.437a1.125 1.125 0 00-1.088-.835H2.25v1.5zM6 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm12 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg>
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="store-main">
+            <!-- Loading State -->
+            <div id="loading-state" class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Carregando produto...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state" class="error-container hidden">
+                <h2>Produto não encontrado</h2>
+                <p>O produto que você está procurando não existe ou foi removido.</p>
+                <a href="loja.html" class="btn-primary">Voltar à Loja</a>
+            </div>
+
+            <!-- Product Details -->
+            <div id="product-details" class="product-details-container hidden">
+                <div class="container">
+                    <div class="product-detail-grid">
+                        <div class="product-image-section">
+                            <div class="main-image-container">
+                                <img id="product-main-image" src="" alt="" class="main-product-image">
+                            </div>
+                        </div>
+                        
+                        <div class="product-info-section">
+                            <div class="breadcrumb">
+                                <a href="loja.html">Loja</a> / <span id="product-category"></span> / <span id="product-name-breadcrumb"></span>
+                            </div>
+                            
+                            <h1 id="product-name" class="product-name"></h1>
+                            
+                            <div class="product-meta">
+                                <div class="product-rating">
+                                    <div class="stars">★★★★★</div>
+                                    <span class="rating-text">(4.8/5 - 127 avaliações)</span>
+                                </div>
+                                <div class="product-stock-info">
+                                    <span id="product-stock" class="stock-badge"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="product-price-section">
+                                <span id="product-price" class="product-price-large"></span>
+                                <span class="price-installments">ou 12x de <span id="product-installment"></span> sem juros</span>
+                            </div>
+                            
+                            <div class="product-description">
+                                <h3>Descrição</h3>
+                                <p id="product-description-text"></p>
+                            </div>
+                            
+                            <div class="product-actions">
+                                <div class="quantity-selector">
+                                    <label for="quantity">Quantidade:</label>
+                                    <div class="quantity-controls">
+                                        <button id="quantity-minus" class="quantity-btn">-</button>
+                                        <input type="number" id="quantity" value="1" min="1" max="10">
+                                        <button id="quantity-plus" class="quantity-btn">+</button>
+                                    </div>
+                                </div>
+                                
+                                <button id="add-to-cart-main" class="btn-primary btn-large">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.44a1.125 1.125 0 00-1.087-1.47H5.25l-.383-1.437a1.125 1.125 0 00-1.088-.835H2.25v1.5zM6 18.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm12 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                                    </svg>
+                                    Adicionar ao Carrinho
+                                </button>
+                                
+                                <button id="buy-now-btn" class="btn-secondary btn-large">
+                                    Comprar Agora
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Section -->
+            <section id="recommendations-section" class="recommendations-section hidden">
+                <div class="container">
+                    <h2 class="section-title">&lt;Produtos Relacionados&gt;</h2>
+                    <div id="recommendations-grid" class="product-grid">
+                        <!-- Produtos recomendados serão inseridos aqui -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="store-footer">
+            <div class="container">
+                <p>&copy; 2025 Ronaldo.tech - Todos os direitos reservados.</p>
+                <a href="../index.html" class="back-link">Voltar aos Links</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODAL DO CARRINHO -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>Seu Carrinho</h2>
+                <span class="close-modal">&times;</span>
+            </header>
+            <div id="cart-items" class="modal-body">
+                <!-- Itens do carrinho serão inseridos aqui -->
+                <p class="cart-empty-message">Seu carrinho está vazio.</p>
+            </div>
+            <footer class="modal-footer">
+                <div class="total">
+                    <span>Total:</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+                <a href="obrigado.html" id="checkout-btn" class="btn-primary">Finalizar Compra</a>
+            </footer>
+        </div>
+    </div>
+
+    <script src="produto-script.js"></script>
+</body>
+</html>

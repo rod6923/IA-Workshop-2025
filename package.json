@@ -1,0 +1,10 @@
+{
+  "name": "ia-workshop-2025",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "firebase": "^10.12.3",
+    "dotenv": "^16.4.5"
+  }
+}
+

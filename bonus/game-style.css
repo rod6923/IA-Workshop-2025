@@ -50,6 +50,30 @@ body {
     text-shadow: 0 0 5px var(--glow-color);
 }
 
+/* ===================================================
+   RESPONSIVIDADE
+   =================================================== */
+
+/* Mobile */
+@media (max-width: 768px) {
+    #crosshair {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #crosshair {
+        font-size: 18px;
+    }
+}
+
+/* iPhone específico */
+@media (max-width: 414px) {
+    #crosshair {
+        font-size: 16px;
+    }
+}
+
 /* OVERLAYS (TELA DE INÍCIO/FIM) */
 .overlay {
     position: fixed;

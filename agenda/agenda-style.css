@@ -312,6 +312,192 @@ body {
 .back-link:hover { color: var(--accent-color); }
 
 @media (max-width: 900px) {
-    .agenda-wrapper { flex-direction: column; }
-    .event-details-container { border-left: none; border-top: 1px solid rgba(57, 255, 20, 0.2); padding-left: 0; padding-top: 2rem; }
+    .agenda-wrapper { 
+        flex-direction: column; 
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    .event-details-container { 
+        border-left: none; 
+        border-top: 1px solid rgba(57, 255, 20, 0.2); 
+        padding-left: 0; 
+        padding-top: 2rem; 
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .agenda-wrapper {
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .calendar-header {
+        margin-bottom: 1rem;
+    }
+    
+    #current-month-year {
+        font-size: 1.2rem;
+    }
+    
+    .nav-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .date-cell {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .dates-grid {
+        min-height: 280px;
+    }
+    
+    .modal-content {
+        padding: 2rem;
+        width: 95%;
+    }
+    
+    .modal-title {
+        font-size: 1.5rem;
+    }
+    
+    .form-input {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .modal-content .btn {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+    
+    .agenda-wrapper {
+        padding: 0.8rem;
+        border-radius: 15px;
+    }
+    
+    .calendar-header {
+        margin-bottom: 0.8rem;
+    }
+    
+    #current-month-year {
+        font-size: 1rem;
+    }
+    
+    .nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+    
+    .weekdays div {
+        font-size: 0.8rem;
+    }
+    
+    .date-cell {
+        height: 35px;
+        font-size: 0.8rem;
+    }
+    
+    .dates-grid {
+        min-height: 245px;
+        gap: 0.3rem;
+    }
+    
+    .weekdays {
+        gap: 0.3rem;
+    }
+    
+    #event-date-title {
+        font-size: 1.2rem;
+    }
+    
+    #event-list li {
+        padding: 0.8rem;
+    }
+    
+    .add-event-btn {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .modal-title {
+        font-size: 1.3rem;
+    }
+    
+    .form-input {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .modal-content .btn {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .back-link {
+        bottom: 15px;
+        left: 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* iPhone específico - ajustes extras */
+@media (max-width: 414px) {
+    .agenda-wrapper {
+        padding: 0.6rem;
+    }
+    
+    .date-cell {
+        height: 32px;
+        font-size: 0.75rem;
+    }
+    
+    .dates-grid {
+        min-height: 224px;
+        gap: 0.2rem;
+    }
+    
+    .weekdays {
+        gap: 0.2rem;
+    }
+    
+    .weekdays div {
+        font-size: 0.75rem;
+    }
+    
+    .modal-content {
+        padding: 1.2rem;
+    }
+    
+    .modal-title {
+        font-size: 1.2rem;
+    }
+    
+    .form-input {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .modal-content .btn {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
 }

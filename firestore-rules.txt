@@ -1,0 +1,17 @@
+# Regras do Firestore para o projeto
+# Cole no console do Firebase: https://console.firebase.google.com/project/meu-quiz-tech/firestore/rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Leaderboard - leitura pública, escrita pública
+    match /leaderboard/{doc} {
+      allow read, write: if true;
+    }
+    
+    // Products - leitura pública, escrita pública (para dashboard e vendas)
+    match /products/{doc} {
+      allow read, write: if true;
+    }
+  }
+}

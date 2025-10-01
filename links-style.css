@@ -162,3 +162,100 @@ body {
     }
 }
 
+/* ===================================================
+   RESPONSIVIDADE
+   =================================================== */
+
+/* Mobile First - Telas pequenas */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .link-container {
+        max-width: 100%;
+    }
+    
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-name {
+        font-size: 2rem;
+    }
+    
+    .profile-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+    
+    .links-list {
+        gap: 1rem;
+    }
+    
+    .link-button {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+    
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-name {
+        font-size: 1.8rem;
+    }
+    
+    .profile-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .links-list {
+        gap: 0.8rem;
+    }
+    
+    .link-button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* iPhone específico - ajustes extras */
+@media (max-width: 414px) {
+    body {
+        padding: 0.3rem;
+    }
+    
+    .profile-pic {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .profile-name {
+        font-size: 1.6rem;
+    }
+    
+    .profile-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .links-list {
+        gap: 0.6rem;
+    }
+    
+    .link-button {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+}
+
